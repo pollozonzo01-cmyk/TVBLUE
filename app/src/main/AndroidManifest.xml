@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"> <!-- Removido el atributo package para cumplir estrictamente con AGP 8+ -->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
     <!-- Permisos de red -->
     <uses-permission android:name="android.permission.INTERNET" />
@@ -29,8 +29,9 @@
         android:theme="@style/Theme.MegaSoccer"
         android:usesCleartextTraffic="true">
 
+        <!-- Declaración del nombre completo de clase para evitar fallos de resolución -->
         <activity
-            android:name="com.tvblue.MainActivity" <!-- Declaración del nombre completo de clase para evitar fallos de resolución -->
+            android:name="com.tvblue.MainActivity"
             android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|screenSize|smallestScreenSize|uiMode"
             android:exported="true"
             android:hardwareAccelerated="true"
