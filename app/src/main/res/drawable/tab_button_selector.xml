@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Estado Enfocado (Cuando el usuario pasa el control remoto por encima) -->
+    <item android:state_focused="true">
+        <shape android:shape="rectangle">
+            <solid android:color="#E53935" /> <!-- Fondo Rojo -->
+            <corners android:radius="8dp" />
+        </shape>
+    </item>
+    <!-- Estado Seleccionado (Pestaña Activa actual) -->
+    <item android:state_selected="true">
+        <shape android:shape="rectangle">
+            <solid android:color="#212121" /> <!-- Fondo Gris Oscuro -->
+            <stroke android:width="2dp" android:color="#E53935" /> <!-- Borde Rojo -->
+            <corners android:radius="8dp" />
+        </shape>
+    </item>
+    <!-- Estado por defecto -->
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="#121212" /> <!-- Fondo Negro Mate -->
+            <corners android:radius="8dp" />
+        </shape>
+    </item>
+</selector>

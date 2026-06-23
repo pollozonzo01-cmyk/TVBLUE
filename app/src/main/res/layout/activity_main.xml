@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#000000">
+
+    <!-- BARRA DE PESTAÑAS / FAVORITOS (Navegador con 11 botones rápidos de canales) -->
+    <HorizontalScrollView
+        android:id="@+id/scroll_tab_bar"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:background="#09090D"
+        android:scrollbars="none"
+        android:fadingEdgeLength="10dp"
+        android:requiresFadingEdge="horizontal"
+        android:nextFocusDown="@id/webView">
+
+        <LinearLayout
+            android:id="@+id/tab_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:paddingLeft="12dp"
+            android:paddingRight="12dp"
+            android:paddingTop="6dp"
+            android:paddingBottom="6dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TVFREE"
+                android:textColor="#E53935"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:layout_marginRight="16dp" />
+
+            <!-- 1. Canal 5 -->
+            <Button
+                android:id="@+id/btn_canal_5"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="Canal 5"
+                android:textColor="#FFFFFF"
+                android:textSize="11sp"
+                android:textStyle="bold"
+                android:focusable="true"
+                android:background="@drawable/tab_button_selector"
+                android:paddingLeft="12dp"
+                android:paddingRight="12dp"
+                android:layout_marginRight="6dp"
+                android:nextFocusDown="@id/webView" />
+
+            <!-- 2. Azteca 7 -->
+            <Button
+                android:id="@+id/btn_azteca_7"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="Azteca 7"
+                android:textColor="#FFFFFF"
+                android:textSize="11sp"
+                android:textStyle="bold"
+                android:focusable="true"
+                android:background="@drawable/tab_button_selector"
+                android:paddingLeft="12dp"
+                android:paddingRight="12dp"
+                android:layout_marginRight="6dp"
+                android:nextFocusDown="@id/webView" />
+
+            <!-- 3. ESPN MX -->
+            <Button
+                android:id="@+id/btn_espn_mx"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="ESPN MX"
+                android:textColor="#FFFFFF"
+                android:textSize="11sp"
+                android:textStyle="bold"
+                android:focusable="true"
+                android:background="@drawable/tab_button_selector"
+                android:paddingLeft="12dp"
+                android:paddingRight="12dp"
+                android:layout_marginRight="6dp"
+                android:nextFocusDown="@id/webView" />
+
+            <!-- 4. Las Estrellas -->
+            <Button
+                android:id="@+id/btn_las_estrellas"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="Las Estrellas"
+                android:textColor="#FFFFFF"
+                android:textSize="11sp"
+                android:textStyle="bold"
+                android:focusable="true"
+                android:background="@drawable/tab_button_selector"
+                android:paddingLeft="12dp"
+                android:paddingRight="12dp"
+                android:layout_marginRight="6dp"
+                android:nextFocusDown="@id/webView" />
+
+            <!-- 5. Azteca Uno -->
+            <Button
+                android:id="@+id/btn_azteca_uno"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="Azteca Uno"
+                android:textColor="#FFFFFF"
+                android:textSize="11sp"
+                android:textStyle="bold"
+                android:focusable="true"
+                android:background="@drawable/tab_button_selector"
+                android:paddingLeft="12dp"
+                android:paddingRight="12dp"
+                android:layout_marginRight="6dp"
+                android:nextFocusDown="@id/webView" />
+
+            <!-- 6. Foro TV -->
+            <Button
+                android:id="@+id/btn_foro_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="Foro TV"
+                android:textColor="#FFFFFF"
+                android:textSize="11sp"
+                android:textStyle="bold"
+                android:focusable="true"
+                android:background="@drawable/tab_button_selector"
+                android:paddingLeft="12dp"
+                android:paddingRight="12dp"
+                android:layout_marginRight="6dp"
+                android:nextFocusDown="@id/webView" />
+
+            <!-- 7. Milenio TV -->
+            <Button
+                android:id="@+id/btn_milenio_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="Milenio TV"
+                android:textColor="#FFFFFF"
+                android:textSize="11sp"
+                android:textStyle="bold"
+                android:focusable="true"
+                android:background="@drawable/tab_button_selector"
+                android:paddingLeft="12dp"
+                android:paddingRight="12dp"
+                android:layout_marginRight="6dp"
+                android:nextFocusDown="@id/webView" />
+
+            <!-- 8. Telemundo -->
+            <Button
+                android:id="@+id/btn_telemundo"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="Telemundo"
+                android:textColor="#FFFFFF"
+                android:textSize="11sp"
+                android:textStyle="bold"
+                android:focusable="true"
+                android:background="@drawable/tab_button_selector"
+                android:paddingLeft="12dp"
+                android:paddingRight="12dp"
+                android:layout_marginRight="6dp"
+                android:nextFocusDown="@id/webView" />
+
+            <!-- 9. TUDN USA -->
+            <Button
+                android:id="@+id/btn_tudn_usa"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="TUDN USA"
+                android:textColor="#FFFFFF"
+                android:textSize="11sp"
+                android:textStyle="bold"
+                android:focusable="true"
+                android:background="@drawable/tab_button_selector"
+                android:paddingLeft="12dp"
+                android:paddingRight="12dp"
+                android:layout_marginRight="6dp"
+                android:nextFocusDown="@id/webView" />
+
+            <!-- 10. Fox Sports MX -->
+            <Button
+                android:id="@+id/btn_fox_sports"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="Fox Sports MX"
+                android:textColor="#FFFFFF"
+                android:textSize="11sp"
+                android:textStyle="bold"
+                android:focusable="true"
+                android:background="@drawable/tab_button_selector"
+                android:paddingLeft="12dp"
+                android:paddingRight="12dp"
+                android:layout_marginRight="6dp"
+                android:nextFocusDown="@id/webView" />
+
+            <!-- 11. Univision -->
+            <Button
+                android:id="@+id/btn_univision"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="Univisión"
+                android:textColor="#FFFFFF"
+                android:textSize="11sp"
+                android:textStyle="bold"
+                android:focusable="true"
+                android:background="@drawable/tab_button_selector"
+                android:paddingLeft="12dp"
+                android:paddingRight="12dp"
+                android:nextFocusDown="@id/webView" />
+
+        </LinearLayout>
+    </HorizontalScrollView>
+
+    <!-- CONTENEDOR PRINCIPAL DEL WEBVIEW -->
+    <FrameLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="#000000">
+
+        <WebView
+            android:id="@+id/webView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:nextFocusUp="@id/scroll_tab_bar" /> <!-- Navegación lógica de regreso con D-Pad Arriba -->
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="4dp"
+            android:layout_gravity="top"
+            android:indeterminate="true"
+            android:progressTint="#E53935"
+            android:indeterminateTint="#E53935"
+            android:visibility="gone" />
+
+    </FrameLayout>
+
+</LinearLayout>
