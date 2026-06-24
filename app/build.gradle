@@ -5,10 +5,10 @@ plugins {
 
 android {
     compileSdk 34
-    namespace "com.tvblue" // Cambiado al nuevo espacio de nombres oficial de TVBLUE
+    namespace "com.zerotv" // Espacio de nombres oficial de ZeroTV
 
     defaultConfig {
-        applicationId "com.tvblue" // Identificador único e independiente para TVBLUE
+        applicationId "com.zerotv" // Identificador único e independiente
         minSdk 24
         targetSdk 34
         versionCode 1
@@ -50,4 +50,7 @@ dependencies {
     // Solo las dependencias nativas básicas e indispensables para Android TV, logrando el APK más ligero posible
     implementation 'androidx.core:core-ktx:1.12.0'
     implementation 'androidx.leanback:leanback:1.0.0'
+    
+    // Legacy ExoPlayer 2.18.2 - Ultra-ligero, el rey de IPTV
+    implementation 'com.google.android.exoplayer:exoplayer:2.18.2'
 }

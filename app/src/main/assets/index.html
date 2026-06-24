@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>ZeroTV - Canales Premium</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #02040a 0%, #050a16 100%);
+            color: white;
+            min-height: 100vh;
+            padding: 24px;
+            overflow-x: hidden;
+            user-select: none;
+        }
+        .container {
+            max-width: 1450px;
+            margin: 0 auto;
+        }
+        
+        /* Encabezado Premium estilo Netflix - Color Azul Neón de ZeroTV */
+        .header {
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(15px);
+            padding: 16px 30px;
+            border-radius: 16px;
+            margin-bottom: 25px;
+            border: 1px solid rgba(0, 168, 255, 0.15);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 8px 32px 0 rgba(0, 168, 255, 0.1);
+        }
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .logo-arena {
+            font-size: 2.2rem;
+            font-weight: 900;
+            color: #00a8ff;
+            letter-spacing: -1px;
+            text-shadow: 0px 0px 15px rgba(0, 168, 255, 0.6);
+            font-style: italic;
+        }
+        .logo-arena span {
+            color: #ffffff;
+        }
+        .header p {
+            color: #94a3b8;
+            font-size: 0.85rem;
+            margin-top: 2px;
+            font-weight: 600;
+        }
+        .premium-badge {
+            background: linear-gradient(90deg, #00a8ff 0%, #005fcc 100%);
+            color: white;
+            font-size: 0.7rem;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-weight: 800;
+            letter-spacing: 1px;
+            box-shadow: 0 0 10px rgba(0, 168, 255, 0.4);
+        }
+
+        /* Título de Categoría */
+        .category-title {
+            font-size: 1.15rem;
+            font-weight: 800;
+            color: #ffffff;
+            margin-bottom: 12px;
+            margin-top: 24px;
+            padding-left: 6px;
+            border-left: 4px solid #00a8ff;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Cuadrículas de Canales 50% Más Pequeñas y Compactas */
+        .channels-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+            gap: 12px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 16px;
+            padding: 14px;
+            border: 1px solid rgba(0, 168, 255, 0.05);
+            margin-bottom: 10px;
+        }
+
+        /* Tarjeta de canal premium (Azul Arena) */
+        .channel-card {
+            border-radius: 12px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.18s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 2px solid rgba(255, 255, 255, 0.05);
+            background: #0d111d;
+            display: flex;
+            flex-direction: column;
+            text-decoration: none;
+            color: white;
+            position: relative;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+        }
+
+        /* Enfoque del control remoto de Smart TV - Color Azul Arena */
+        .channel-card:hover, .channel-card:focus {
+            transform: scale(1.06);
+            border-color: #00a8ff;
+            box-shadow: 0 8px 24px rgba(0, 168, 255, 0.4);
+            background: #101726;
+            outline: none;
+        }
+
+        /* Contenedor de la Imagen */
+        .channel-image-container {
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #03050c;
+            position: relative;
+            overflow: hidden;
+            padding: 10px;
+        }
+
+        .channel-logo-img {
+            width: 85%;
+            height: 85%;
+            object-fit: contain;
+        }
+
+        /* Botón de Favorito en Esquina Superior */
+        .fav-star {
+            position: absolute;
+            top: 4px;
+            right: 4px;
+            background: rgba(0, 0, 0, 0.6);
+            border: 1px solid rgba(255,255,255,0.1);
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            color: #ccc;
+            z-index: 10;
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+        .fav-star.active {
+            color: #ffd700;
+            text-shadow: 0 0 5px rgba(255,215,0,0.5);
+            border-color: #ffd700;
+        }
+        .fav-star:hover, .fav-star:focus {
+            background: #00a8ff;
+            color: white;
+            border-color: white;
+        }
+
+        /* Respaldo de icono de color sólido si falla la imagen */
+        .channel-icon-fallback {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            text-shadow: 1px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .channel-name {
+            padding: 8px 4px;
+            font-size: 0.72rem;
+            font-weight: 700;
+            background: #080c14;
+            border-top: 1px solid rgba(255, 255, 255, 0.03);
+            transition: background 0.15s;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            text-align: center;
+        }
+
+        .channel-card:hover .channel-name, .channel-card:focus .channel-name {
+            background: #00a8ff;
+            color: #ffffff;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <div class="header-left">
+            <div class="logo-arena">Zero<span>TV</span></div>
+            <div>
+                <p>Reproductor de IPTV Privado — Netflix & TV Blue Design</p>
+            </div>
+        </div>
+        <div class="premium-badge">1GB RAM OPTIMIZED</div>
+    </div>
+
+    <!-- 0. ESPACIO PERSONAL (Favoritos y Último Visto) -->
+    <div id="personalSection" style="display:none;">
+        <div class="category-title">⭐ Mi Espacio Personal</div>
+        <div class="channels-grid" id="gridPersonal"></div>
+    </div>
+
+    <!-- 1. TELEVISIÓN DE MÉXICO -->
+    <div class="category-title">🇲🇽 Televisión de México</div>
+    <div class="channels-grid" id="gridNacionales"></div>
+
+    <!-- 2. DEPORTES DE MÉXICO -->
+    <div class="category-title">⚽ Deportes de México</div>
+    <div class="channels-grid" id="gridDeportesMex"></div>
+
+    <!-- 3. DEPORTES DE SUDAMÉRICA -->
+    <div class="category-title">🌎 Deportes de Sudamérica</div>
+    <div class="channels-grid" id="gridDeportesLat"></div>
+
+    <!-- 4. CANALES DE USA -->
+    <div class="category-title">🇺🇸 Canales de USA</div>
+    <div class="channels-grid" id="gridUSA"></div>
+</div>
+
+<script>
+    // =========================================================================
+    // BASE DE DATOS DE LOS CANALES PREMIUM (13 CANALES DIRECTOS DEL CDN)
+    // =========================================================================
+    const canales = [
+        // 🇲🇽 CATEGORÍA 1: TELEVISIÓN DE MÉXICO (TDT)
+        { cat: "nac", id: "c5", nombre: "CANAL 5", url: "https://1nyaler.streamhostingcdn.top/stream/52/index.m3u8?token=aN7QrmHIoz60HOhI", color: "#E53935", short: "C5", logo: "https://upload.wikimedia.org/wikipedia/commons/d/de/Canal_5_Televisa_logo.png" },
+        { cat: "nac", id: "c7", nombre: "CANAL 7", url: "https://1nyaler.streamhostingcdn.top/stream/117/index.m3u8?token=aN7QrmHIoz60HOhI", color: "#1E88E5", short: "C7", logo: "https://upload.wikimedia.org/wikipedia/commons/e/e4/Tv_azteca_7_logo.png" },
+        { cat: "nac", id: "c5m", nombre: "CANAL 5 MEX", url: "https://1nyaler.streamhostingcdn.top/stream/52/index.m3u8?token=aN7QrmHIoz60HOhI", color: "#D81B60", short: "C5M", logo: "https://upload.wikimedia.org/wikipedia/commons/d/de/Canal_5_Televisa_logo.png" },
+        { cat: "nac", id: "mex", nombre: "MEX", url: "https://1nyaler.streamhostingcdn.top/stream/117/index.m3u8?token=aN7QrmHIoz60HOhI", color: "#5E35B1", short: "MEX", logo: "https://upload.wikimedia.org/wikipedia/commons/f/fc/Flag_of_Mexico.svg" },
+
+        // ⚽ CATEGORÍA 2: DEPORTES DE MÉXICO
+        { cat: "depmex", id: "tudnmx", nombre: "TUDN MEX", url: "https://1nyaler.streamhostingcdn.top/stream/27/index.m3u8?token=aN7QrmHIoz60HOhI", color: "#00897B", short: "TUDN", logo: "https://upload.wikimedia.org/wikipedia/commons/b/be/TUDN_logo.png" },
+        { cat: "depmex", id: "foxs", nombre: "FOX SPORTS MX", url: "https://1nyaler.streamhostingcdn.top/stream/25/index.m3u8?token=aN7QrmHIoz60HOhI", color: "#FFB300", short: "FOX", logo: "https://upload.wikimedia.org/wikipedia/commons/2/23/Fox_Sports_M%C3%A9xico_Logo.png" },
+        { cat: "depmex", id: "espnmx", nombre: "ESPN MEXICO", url: "https://1nyaler.streamhostingcdn.top/stream/96/index.m3u8?token=aN7QrmHIoz60HOhI", color: "#D81B60", short: "ESPN", logo: "https://upload.wikimedia.org/wikipedia/commons/a/ad/ESPN_logo.png" },
+        { cat: "depmex", id: "espn2", nombre: "ESPN 2 MEX", url: "https://1nyaler.streamhostingcdn.top/stream/100/index.m3u8?token=aN7QrmHIoz60HOhI", color: "#8E24AA", short: "ES2", logo: "https://upload.wikimedia.org/wikipedia/commons/a/ad/ESPN_logo.png" },
+        { cat: "depmex", id: "espn3", nombre: "ESPN 3 MEX", url: "https://1nyaler.streamhostingcdn.top/stream/102/index.m3u8?token=aN7QrmHIoz60HOhI", color: "#00ACC1", short: "ES3", logo: "https://upload.wikimedia.org/wikipedia/commons/a/ad/ESPN_logo.png" },
+
+        // 🌎 CATEGORÍA 3: DEPORTES DE SUDAMÉRICA
+        { cat: "deplat", id: "wins", nombre: "WIN SPORTS COL", url: "https://1nyaler.streamhostingcdn.top/stream/32/index.m3u8?token=aN7QrmHIoz60HOhI", color: "#F4511E", short: "WIN", logo: "https://upload.wikimedia.org/wikipedia/commons/4/4e/Win_Sports_logo.png" },
+        { cat: "deplat", id: "dgo", nombre: "DGO LATINO ARG", url: "https://1nyaler.streamhostingcdn.top/stream/106/index.m3u8?token=aN7QrmHIoz60HOhI", color: "#039BE5", short: "DGO", logo: "https://upload.wikimedia.org/wikipedia/commons/1/1c/DGO_logo.png" },
+        { cat: "deplat", id: "tyc", nombre: "TYC SPORTS ARG", url: "https://1nyaler.streamhostingcdn.top/stream/84/index.m3u8?token=aN7QrmHIoz60HOhI", color: "#3949AB", short: "TYC", logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/TyC_Sports_Logo.svg/1200px-TyC_Sports_Logo.svg.png" },
+        { cat: "deplat", id: "espnar", nombre: "ESPN ARGENTINA", url: "https://1nyaler.streamhostingcdn.top/stream/99/index.m3u8?token=aN7QrmHIoz60HOhI", color: "#43A047", short: "ESPA", logo: "https://upload.wikimedia.org/wikipedia/commons/a/ad/ESPN_logo.png" },
+        { cat: "deplat", id: "dsp", nombre: "DSPORTS ARG", url: "https://1nyaler.streamhostingcdn.top/stream/106/index.m3u8?token=aN7QrmHIoz60HOhI", color: "#C62828", short: "DSP", logo: "https://upload.wikimedia.org/wikipedia/commons/1/1c/DGO_logo.png" },
+
+        // 🇺🇸 CATEGORÍA 4: CANALES DE USA - 1 CANAL
+        { cat: "depesp", id: "uni", nombre: "UNIVISION", url1: "https://1nyaler.streamhostingcdn.top/stream/83/index.m3u8?token=aN7QrmHIoz60HOhI", color: "#FF8F00", short: "UNI", logo: "https://upload.wikimedia.org/wikipedia/commons/0/07/Logo_de_Univision.png" }
+    ];
+
+    // =========================================================================
+    // LÓGICA DE FAVORITOS Y ÚLTIMO CANAL VISTO (localStorage)
+    // =========================================================================
+    let favoritos = JSON.parse(localStorage.getItem('favs_gabotv')) || [];
+    let ultimoCanal = JSON.parse(localStorage.getItem('last_watched_gabotv')) || null;
+
+    // Guardar favoritos
+    function saveFavs() {
+        localStorage.setItem('favs_gabotv', JSON.stringify(favoritos));
+        renderPersonalSection();
+    }
+
+    // Toggle Favoritos
+    function toggleFavorite(id, event) {
+        if (event) event.stopPropagation();
+        
+        const idx = favoritos.indexOf(id);
+        if (idx > -1) {
+            favoritos.splice(idx, 1);
+        } else {
+            favoritos.push(id);
+        }
+        
+        // Actualizar estrellas visuales en la pantalla
+        document.querySelectorAll(`.star-${id}`).forEach(star => {
+            star.classList.toggle('active', favoritos.indexOf(id) > -1);
+            star.textContent = favoritos.indexOf(id) > -1 ? '★' : '☆';
+        });
+        
+        saveFavs();
+    }
+
+    // Registrar último canal visto
+    function setLastWatched(canal) {
+        ultimoCanal = canal;
+        localStorage.setItem('last_watched_gabotv', JSON.stringify(canal));
+        renderPersonalSection();
+    }
+
+    // Dibujar el espacio personal (Favoritos + Último Visto)
+    function renderPersonalSection() {
+        const personalSection = document.getElementById('personalSection');
+        const gridPersonal = document.getElementById('gridPersonal');
+        gridPersonal.innerHTML = '';
+
+        let itemsToAdd = [];
+
+        // 1. Agregar tarjeta de "ÚLTIMO VISTO" si existe
+        if (ultimoCanal) {
+            const cardLast = createCardElement(ultimoCanal, true);
+            itemsToAdd.push(cardLast);
+        }
+
+        // 2. Agregar los favoritos actuales
+        favoritos.forEach(favId => {
+            const canal = canales.find(c => c.id === favId);
+            if (canal && (!ultimoCanal || canal.id !== ultimoCanal.id)) {
+                const cardFav = createCardElement(canal, false);
+                itemsToAdd.push(cardFav);
+            }
+        });
+
+        if (itemsToAdd.length > 0) {
+            itemsToAdd.forEach(card => gridPersonal.appendChild(card));
+            personalSection.style.display = 'block';
+        } else {
+            personalSection.style.display = 'none';
+        }
+    }
+
+    // Función auxiliar para construir el elemento HTML de la tarjeta
+    function createCardElement(canal, isLastWatched = false) {
+        const card = document.createElement('a');
+        card.className = 'channel-card';
+        card.href = "#";
+        card.setAttribute('tabindex', '0');
+        card.setAttribute('data-index', canal.id);
+        
+        // Acción al pulsar OK / clic: abre el canal de forma nativa e instantánea en ExoPlayer
+        card.onclick = (e) => {
+            e.preventDefault();
+            setLastWatched(canal);
+            if (typeof Android !== 'undefined' && Android.playChannel) {
+                Android.playChannel(canal.url1, canal.url2 || "", canal.nombre);
+            } else {
+                console.log("ZeroTV: Android Interface no detectada. URL:", canal.url1);
+            }
+        };
+
+        const imgContainer = document.createElement('div');
+        imgContainer.className = 'channel-image-container';
+
+        // Logotipo oficial
+        const logoImg = document.createElement('img');
+        logoImg.className = 'channel-logo-img';
+        logoImg.src = canal.logo;
+        logoImg.alt = canal.nombre;
+
+        // Fallback color si falla
+        const fallbackDiv = document.createElement('div');
+        fallbackDiv.className = 'channel-icon-fallback';
+        fallbackDiv.style.backgroundColor = canal.color;
+        fallbackDiv.textContent = canal.short;
+        fallbackDiv.style.display = 'none';
+
+        logoImg.onerror = function() {
+            this.style.display = 'none';
+            fallbackDiv.style.display = 'flex';
+        };
+
+        imgContainer.appendChild(logoImg);
+        imgContainer.appendChild(fallbackDiv);
+
+        // Estrella de favorito
+        const star = document.createElement('div');
+        star.className = `fav-star star-${canal.id}`;
+        if (favoritos.indexOf(canal.id) > -1) star.classList.add('active');
+        star.textContent = favoritos.indexOf(canal.id) > -1 ? '★' : '☆';
+        star.onclick = (e) => toggleFavorite(canal.id, e);
+        
+        imgContainer.appendChild(star);
+
+        const nameDiv = document.createElement('div');
+        nameDiv.className = 'channel-name';
+        nameDiv.textContent = isLastWatched ? `🕒 ${canal.nombre}` : canal.nombre;
+
+        card.appendChild(imgContainer);
+        card.appendChild(nameDiv);
+
+        return card;
+    }
+
+    // Dibujar las categorías generales de la base de datos
+    function renderGeneralCategories() {
+        const gridNacionales = document.getElementById('gridNacionales');
+        const gridDeportesMex = document.getElementById('gridDeportesMex');
+        const gridDeportesLat = document.getElementById('gridDeportesLat');
+        const gridUSA = document.getElementById('gridUSA');
+
+        // Limpiar
+        gridNacionales.innerHTML = '';
+        gridDeportesMex.innerHTML = '';
+        gridDeportesLat.innerHTML = '';
+        gridUSA.innerHTML = '';
+
+        canales.forEach(canal => {
+            const card = createCardElement(canal, false);
+            if (canal.cat === "nac") gridNacionales.appendChild(card);
+            else if (canal.cat === "depmex") gridDeportesMex.appendChild(card);
+            else if (canal.cat === "deplat") gridDeportesLat.appendChild(card);
+            else if (canal.cat === "depesp") gridUSA.appendChild(card); // Mapeado a USA
+        });
+    }
+
+    // Inicializar todo
+    renderGeneralCategories();
+    renderPersonalSection();
+
+    // Focalizar automáticamente la primera tarjeta de inicio al cargar en TV
+    setTimeout(() => {
+        const firstCard = document.querySelector('.channel-card');
+        if (firstCard) firstCard.focus();
+    }, 200);
+
+    // Mapeo D-Pad para simular clic con el botón central OK
+    document.addEventListener('keydown', function(event) {
+        if (event.key === 'Enter') {
+            var activeEl = document.activeElement;
+            if (activeEl && activeEl.classList.contains('channel-card')) {
+                event.preventDefault();
+                activeEl.click();
+            }
+        }
+    });
+</script>
+
+</body>
+</html>

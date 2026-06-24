@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/player_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#000000">
+
+    <!-- StyledPlayerView de ExoPlayer 2.x (Soporte D-Pad y alto rendimiento por hardware) -->
+    <com.google.android.exoplayer2.ui.StyledPlayerView
+        android:id="@+id/player_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:focusable="true"
+        android:keepScreenOn="true" />
+
+    <!-- ProgressBar central de carga -->
+    <ProgressBar
+        android:id="@+id/player_progress_bar"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_gravity="center"
+        android:indeterminateTint="#E53935"
+        android:visibility="visible" />
+
+</FrameLayout>

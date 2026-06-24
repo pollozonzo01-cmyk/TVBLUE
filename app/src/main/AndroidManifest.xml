@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"> <!-- Removido el atributo package para cumplir estrictamente con AGP 8+ -->
 
     <!-- Permisos de red -->
     <uses-permission android:name="android.permission.INTERNET" />
@@ -31,7 +31,7 @@
 
         <!-- Declaración del nombre completo de clase para evitar fallos de resolución -->
         <activity
-            android:name="com.tvblue.MainActivity"
+            android:name="com.zerotv.MainActivity"
             android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|screenSize|smallestScreenSize|uiMode"
             android:exported="true"
             android:hardwareAccelerated="true"
@@ -51,6 +51,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <!-- Actividad de Reproducción Nativa (ExoPlayer 2.18.2) -->
+        <activity
+            android:name="com.zerotv.PlayerActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|screenSize|smallestScreenSize|uiMode"
+            android:exported="false"
+            android:hardwareAccelerated="true"
+            android:launchMode="singleTask"
+            android:screenOrientation="landscape"
+            android:theme="@style/Theme.MegaSoccer" />
 
     </application>
 
